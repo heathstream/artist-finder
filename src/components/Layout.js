@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/style.css";
 import "../css/colors-fonts.css";
+import Home from "./Home.js";
 import Artists from "./Artists.js";
 import AddNew from "./AddNew.js";
 import Details from "./Details.js";
