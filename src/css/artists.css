@@ -1,0 +1,123 @@
+.artistsContainer {
+    flex: 1;
+    max-width: 60rem;
+}
+
+.searchBoxGroup {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex: auto;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+#searchBox {
+    width: 100%;
+    display: block;
+    height: 2.4rem;
+}
+
+#seededCheckbox {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: var(--color1);
+}
+
+.seededCheckboxGroup {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: large;
+    color: var(--color4);
+}
+
+.artistsTable {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+}
+
+.artistsTableRow, .tableRowTitle {
+    grid-template-columns: 42% 18% 15% 10% 1fr;
+    grid-template-areas: "name genre year albums details";
+}
+
+.artistImage {
+    grid-area: image;
+    display: flex;
+    justify-content: center;
+}
+
+.artistImage > img {
+    height: 3rem;
+    width: 3rem;
+}
+
+.artistName {
+    grid-area: name;
+}
+
+.artistGenre {
+    grid-area: genre;
+}
+
+.artistYear {
+    grid-area: year;
+}
+
+.artistAlbums {
+    grid-area: albums;
+}
+
+.artistDetails {
+    grid-area: details;
+}
+
+.detailsButton {
+    justify-self: end;
+    margin-left: auto;
+}
+
+.browseButtonGroup {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    gap: 0.7rem;
+    margin-right: auto;
+}
+
+#paginatorText {
+    color: var(--color4);
+    font-size: large;
+}
+
+.highlightSearch {
+    font-weight: bold;
+}
+
+@media (width <= 850px) {
+    /* .searchBoxGroup {
+        width: 100%;
+    } */
+}
+
+@media (width <= 600px) {
+    .artistsTableRow {
+        grid-template-columns: 55% 20% 1fr;
+        grid-template-areas: "name genre details";
+    }
+
+    .artistAlbums, .artistYear {
+        display: none;
+    }
+
+
+    .artistsContainer {
+        border: 0px;
+    }
+}

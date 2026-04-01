@@ -1,0 +1,73 @@
+.addNewContainer {
+    width: 32rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.formItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formItem {
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 0.2rem;
+}
+
+.addNewEntry {
+    height: 2.4rem;
+    font-size: larger;
+}
+
+.formItem > select, .formItem > input {
+    width: 100%;
+}
+
+.submitButton {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+#genre:invalid, #year:invalid {
+    color: var(--color4);
+}
+
+option {
+    color: var(--color4);
+}
+
+#submitStatusText {
+    font-size: large;
+    font-style: italic;
+    margin-bottom: 2rem;
+}
+
+.invalid {
+    color: var(--invalidColor);
+}
+
+.valid {
+    color: var(--validColor);
+}
+
+.invalidText {
+    height: 1.5rem;
+}
+
+/* button {
+    margin-bottom: 1.5rem;
+} */
