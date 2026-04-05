@@ -1,12 +1,11 @@
-import React from "react";
+import { Outlet, NavLink } from "react-router-dom";
 import "../css/style.css";
 import "../css/colors-fonts.css";
-import Home from "./Home.js";
-import Artists from "./Artists.js";
-import AddNew from "./AddNew.js";
-import Details from "./Details.js";
 
 function Layout() {
+	const menuItemClass = ({ isActive }) =>
+		isActive ? "menuItem activeMenuItem" : "menuItem";
+
 	return (
 		<div className="layout">
 			<div className="header">
@@ -15,19 +14,19 @@ function Layout() {
 			</div>
 			<div className="menu">
 				<div className="menuItemGroup">
-					<a href="index.html">
-						<div className="menuItem activeMenuItem">Home</div>
-					</a>
-					<a href="artists.html">
-						<div className="menuItem">Artists</div>
-					</a>
-					<a href="addnew.html">
-						<div className="menuItem ">Add new</div>
-					</a>
+					<NavLink to="/" className={menuItemClass}>
+						Home
+					</NavLink>
+					<NavLink to="/artists" className={menuItemClass}>
+						Artists
+					</NavLink>
+					<NavLink to="/addnew" className={menuItemClass}>
+						Add new
+					</NavLink>
 				</div>
 			</div>
 			<div className="content">
-				<Details />
+				<Outlet />
 			</div>
 			<div className="footer">© Anders Hedström</div>
 		</div>

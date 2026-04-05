@@ -50,7 +50,7 @@ option {
     color: var(--color4);
 }
 
-#submitStatusText {
+.submitStatusText {
     font-size: large;
     font-style: italic;
     margin-bottom: 2rem;

@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import musicGroupService from "../services/musicGroupService.js";
 import "../css/colors-fonts.css";
 import "../css/style.css";
 import "../css/details.css";
 
+const _service = new musicGroupService("https://music.api.public.seido.se/api");
+
 function Details() {
+	const [searchParams] = useSearchParams();
+	const [loading, setLoading] = useState(false);
+	const [musicGroup, setMusicGroup] = useState(null);
+
+	useEffect(() => {
+		async function loadMusicGroup() {
+			setLoading(true);
+			const id = searchParams.get("id");
+			const data = await _service.readMusicGroupAsync(id);
+			setMusicGroup(data.item);
+			setLoading(false);
+		}
+		loadMusicGroup();
+	}, [searchParams]);
+
 	return (
 		<>
 			<div className="detailsSection rounded1">
@@ -22,19 +41,19 @@ function Details() {
 					<div className="detailsInfoEntry">
 						<div className="infoKey">Name:</div>
 						<div id="name" className="infoValue">
-							Gorillaz
+							{musicGroup?.name}
 						</div>
 					</div>
 					<div className="detailsInfoEntry">
 						<div className="infoKey">Genre:</div>
 						<div id="genre" className="infoValue">
-							Alternative
+							{musicGroup?.strGenre}
 						</div>
 					</div>
 					<div className="detailsInfoEntry">
 						<div className="infoKey">Est. year:</div>
 						<div id="year" className="infoValue">
-							1998
+							{musicGroup?.establishedYear}
 						</div>
 					</div>
 				</div>
@@ -51,13 +70,27 @@ function Details() {
 							<div className="tableCellTitle">Name</div>
 							<div className="tableCellTitle">Age</div>
 						</div>
-						<div className="memberRow tableRow">
-							<div className="tableCell">2-D</div>
-							<div className="tableCell">25</div>
-						</div>
+						{musicGroup?.artists?.map((member) => (
+							<div
+								className="memberRow tableRow"
+								key={member.artistId}>
+								<div className="tableCell">{`${member.firstName} ${member.lastName}`}</div>
+								<div className="tableCell">
+									{member.birthDay ?
+										Math.round(
+											(Date.now() -
+												new Date(
+													Date.parse(member.birthDay),
+												).getTime()) /
+												(1000 * 60 * 60 * 24 * 365.25),
+										)
+									:	"N/A"}
+								</div>
+							</div>
+						))}
 						<div
 							id="membersTableBottom"
-							style={{ height: "2rem;" }}></div>
+							style={{ height: "2rem" }}></div>
 					</div>
 				</div>
 				<div
@@ -71,19 +104,27 @@ function Details() {
 							<div className="tableCellTitle">Name</div>
 							<div className="tableCellTitle">Year</div>
 						</div>
-						<div className="albumRow tableRow">
-							<div className="tableCell">Gorillaz</div>
-							<div className="tableCell">2001</div>
-						</div>
+						{musicGroup?.albums?.map((album) => (
+							<div
+								className="albumRow tableRow"
+								key={album.albumId}>
+								<div className="tableCell">{album.name}</div>
+								<div className="tableCell">
+									{album.releaseYear}
+								</div>
+							</div>
+						))}
 						<div
 							id="albumsTableBottom"
-							style={{ height: "2rem;" }}></div>
+							style={{ height: "2rem" }}></div>
 					</div>
 				</div>
 			</div>
-			<div className="loadingOverlay hidden">
-				<p>Loading...</p>
-			</div>
+			{loading && (
+				<div className="loadingOverlay hidden">
+					<p>Loading...</p>
+				</div>
+			)}
 		</>
 	);
 }
