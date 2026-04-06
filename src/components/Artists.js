@@ -35,7 +35,9 @@ function Artists() {
 
 	// Event handlers
 	function handleCheckSeeded(e) {
-		setSeeded(e.target.checked ? true : false);
+		setSeeded(e.target.checked);
+		setSearchInput("");
+		setFilter("");
 		setCurrentPage(0);
 	}
 
