@@ -99,6 +99,9 @@ function Artists() {
 						placeholder="Led Zeppelin"
 						value={searchInput}
 						onChange={(e) => setSearchInput(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") handleClickSearch();
+						}}
 					/>
 					<button
 						id="buttonSearch"
