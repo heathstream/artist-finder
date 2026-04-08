@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import musicGroupService from "../services/musicGroupService.js";
 import "../css/colors-fonts.css";
@@ -19,7 +19,7 @@ function Artists() {
 
 	// Denna funktion laddar om sidan när antingen currentPage, filter eller seeded uppdateras
 	useEffect(() => {
-		async function loadMusicGroups() {
+		(async () => {
 			setLoading(true);
 			const data = await _service.readMusicGroupsAsync(
 				currentPage,
@@ -29,8 +29,7 @@ function Artists() {
 			);
 			setMusicGroups(data);
 			setLoading(false);
-		}
-		loadMusicGroups();
+		})();
 	}, [currentPage, filter, seeded]);
 
 	// Event handlers
@@ -128,10 +127,8 @@ function Artists() {
 					<div className="tableCellTitle artistAlbums">Albums</div>
 				</div>
 
-				{musicGroups?.pageItems.map((group) => (
-					<div
-						className="tableRow artistsTableRow"
-						key={group.musicGroupId}>
+				{musicGroups?.pageItems.map((group, idx) => (
+					<div className="tableRow artistsTableRow" key={idx}>
 						<div className="tableCell artistName">
 							{filter ?
 								<span
