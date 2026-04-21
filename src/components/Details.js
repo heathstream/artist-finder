@@ -11,6 +11,7 @@ function Details() {
 	const [searchParams] = useSearchParams();
 	const [loading, setLoading] = useState(false);
 	const [musicGroup, setMusicGroup] = useState(null);
+	const [randomImage, setRandomImage] = useState();
 
 	useEffect(() => {
 		async function loadMusicGroup() {
@@ -18,6 +19,9 @@ function Details() {
 			const id = searchParams.get("id");
 			const data = await _service.readMusicGroupAsync(id);
 			setMusicGroup(data.item);
+			setRandomImage(
+				`https://picsum.photos/seed/${data.item.musicGroupId}/300/300`,
+			);
 			setLoading(false);
 		}
 		loadMusicGroup();
@@ -31,7 +35,7 @@ function Details() {
 						alt="Artist"
 						id="artistImage"
 						className="rounded1 bordered"
-						src="https://cdn-images.dzcdn.net/images/artist/ebbb1c133ed0220c714b9ed5d254561f/1900x1900-000000-80-0-0.jpg"
+						src={randomImage}
 					/>
 				</div>
 				<div className="detailsInfo rounded1 bordered">
@@ -121,7 +125,7 @@ function Details() {
 				</div>
 			</div>
 			{loading && (
-				<div className="loadingOverlay hidden">
+				<div className="loadingOverlay">
 					<p>Loading...</p>
 				</div>
 			)}

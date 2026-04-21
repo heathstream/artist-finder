@@ -43,6 +43,9 @@ function AddNew() {
 		e.preventDefault();
 		setHasClickedSubmit(true);
 
+		const form = document.querySelector("#form");
+		form.classList.add("needsValidation");
+
 		// Validering:
 		setNameValid(name.length < 3 ? false : true);
 		setGenreValid(genreOptions.includes(genre) ? true : false);
@@ -78,7 +81,7 @@ function AddNew() {
 			<div className="subHeader">
 				<h2>Add new artist</h2>
 			</div>
-			<form onSubmit={(e) => handleSubmit(e)}>
+			<form id="form" onSubmit={(e) => handleSubmit(e)}>
 				<div className="formItems">
 					<div className="formItem">
 						{(hasChangedName || hasClickedSubmit) && !nameValid && (
